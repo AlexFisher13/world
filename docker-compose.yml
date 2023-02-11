@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: ghusta/postgres-world-db
+    container_name: db
+    restart: always
+
+  app:
+    container_name: world-app
+    image: world-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/world-db
+      - SPRING_DATASOURCE_USERNAME=world
+      - SPRING_DATASOURCE_PASSWORD=world123
+
+
